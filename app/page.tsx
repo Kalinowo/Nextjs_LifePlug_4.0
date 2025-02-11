@@ -1,7 +1,6 @@
 import Image from "next/image";
 import ReZero from "@/public/ReZeroBackground.png";
 import Entrance from "@/components/home/Entrance";
-import { fetchUniqueYears } from "@/lib/data";
 
 export default async function Home() {
   return (

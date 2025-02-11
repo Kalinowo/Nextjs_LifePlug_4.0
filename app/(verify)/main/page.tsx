@@ -6,6 +6,7 @@ import Search from "@/components/main/Search";
 import Pagination from "@/components/main/Pagination";
 import QueryAnimeLists from "@/components/main/QueryAnimeLists";
 import { auth } from "@/auth";
+import { Suspense } from "react";
 
 export default async function Main(props: {
   searchParams?: Promise<{
@@ -14,7 +15,6 @@ export default async function Main(props: {
   }>;
 }) {
   const session = await auth();
-
   const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
   const totalYears = await fetchUniqueYears();
@@ -23,17 +23,21 @@ export default async function Main(props: {
   return (
     <div className="relative w-full px-5">
       {session?.user.role === "ADMIN" && <AdminFunction />}
-      <Search placeholder="Search anime..." />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Search placeholder="Search anime..." />
+      </Suspense>
       {query === "" ? (
         <AnimeLists currentYear={currentYear} />
       ) : (
         <QueryAnimeLists query={query} />
       )}
-      <Pagination
-        totalYears={totalYears}
-        query={query}
-        currentYear={currentYear}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Pagination
+          totalYears={totalYears}
+          query={query}
+          currentYear={currentYear}
+        />
+      </Suspense>
     </div>
   );
 }

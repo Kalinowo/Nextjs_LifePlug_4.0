@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { fetchUniqueAnime } from "@/lib/data";
 import YoutubeContainer from "@/components/anime/YoutubeContainer";
@@ -69,13 +69,15 @@ export default async function AnimePage(props: {
             session={session}
           />
           <div className="flex gap-2 px-2 pt-1">
-            <EpisodeBtn
-              totalEpisode={anime.episode}
-              title={anime.title}
-              engName={anime.engName}
-              episodeUrl={episode}
-              isAdmin={session?.user.role}
-            />
+            <Suspense fallback={<div>Loading...</div>}>
+              <EpisodeBtn
+                totalEpisode={anime.episode}
+                title={anime.title}
+                engName={anime.engName}
+                episodeUrl={episode}
+                isAdmin={session?.user.role}
+              />
+            </Suspense>
             {session?.user.role === "ADMIN" && (
               <AdminAddEpisode id={anime.id} />
             )}
