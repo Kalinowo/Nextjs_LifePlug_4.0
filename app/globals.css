@@ -3,19 +3,42 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary-bg-color: rgb(156 163 175);
+  --secondary-bg-color: rgba(255, 255, 255, 0.2);
+  --primary-text-color: rgb(75 85 99);
+  --secondary-text-color:rgb(229 231 235);
+  /* --primary-bg-color: rgb(31, 31, 31);
+    --primary-text-color: rgb(75 85 99); */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --primary-bg-color: #181818;
+  --secondary-bg-color: rgba(255,   255, 255, 0.5)
+  --primary-text-color: rgb(209 213 219);
+  --secondary-text-color:rgb(229 231 235);
+  /* --primary-text-color: ""; */
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.dark .gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-700 from-10%  to-blue-600 to-50%;
+}
+
+.dark .gradient-bg {
+  @apply bg-gradient-to-r from-purple-700 from-10%  to-blue-600 to-50%;
+}
+
+button[disabled] {
+  color: rgb(75 85 99);
+}
+
+.youtubePlayer iframe {
+  aspect-ratio: 16/9;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
 }

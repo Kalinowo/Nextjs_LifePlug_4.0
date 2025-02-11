@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  MEMBER
+  ADMIN
+}
+
+model User {
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  role           Role      @default(MEMBER)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  Account        Account[]
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Anime {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String   @unique
+  engName   String
+  img       String
+  year      String
+  season    String
+  genre     String
+  director  String
+  agent     String
+  producer  String
+  episode   String[] @default([])
+  view      String[] @default([])
+  intro     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model History {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  title       String
+  engName     String
+  img         String
+  episode     String
+  length      Int
+  currentTime Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, title])
+}
