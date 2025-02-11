@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import YouTube, { YouTubeProps } from "react-youtube";
+import YouTube from "react-youtube";
 
 export default function YoutubeContainer({ episodeUrl, anime, session }: any) {
   // console.log(session.user.id);

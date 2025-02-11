@@ -1,11 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import clsx from "clsx";
 import Register from "./Register";
 import Login from "./Login";
 import { IoCloseOutline } from "react-icons/io5";
 
-type FormTabType = "signin" | "register";
 interface LoginFormProps {
   setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -40,7 +39,11 @@ export default function LoginForm({ setOpenLogin }: LoginFormProps) {
             />
           </span>
         </div>
-        {formTab === "signin" && <Login setOpenLogin={setOpenLogin} />}
+        {formTab === "signin" && (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Login setOpenLogin={setOpenLogin} />
+          </Suspense>
+        )}
         {formTab === "register" && <Register />}
       </div>
     </div>
