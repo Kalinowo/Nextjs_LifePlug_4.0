@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { authenticate } from "@/server/action";
 import { useSearchParams } from "next/navigation";
 import { IoIosInformationCircleOutline } from "react-icons/io";
+import { AiOutlineReload } from "react-icons/ai";
 
 interface LoginFormProps {
   setOpenLogin: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,7 +55,16 @@ export default function Login({ setOpenLogin }: LoginFormProps) {
             className="basis-2/3 bg-blue-400 rounded-sm hover:text-white"
             aria-disabled={isPending}
           >
-            登入
+            {isPending ? (
+              <div className="flex justify-center items-center">
+                Loading...
+                <span>
+                  <AiOutlineReload className="animate-spin" />
+                </span>
+              </div>
+            ) : (
+              "登入"
+            )}
           </button>
           <button
             className="basis-1/3 bg-gray-400 rounded-sm hover:text-white"

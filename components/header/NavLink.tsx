@@ -17,9 +17,10 @@ const links = [
 
 interface NavLinkProps {
   hamburger: boolean;
+  setHamburger: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function NavLink({ hamburger }: NavLinkProps) {
+export default function NavLink({ hamburger, setHamburger }: NavLinkProps) {
   const pathname = usePathname();
   console.log("here is the " + pathname);
   return (
@@ -39,9 +40,10 @@ export default function NavLink({ hamburger }: NavLinkProps) {
                 <Link
                   href={link.href}
                   className={clsx(
-                    "font-bold",
+                    "font-bold hover:text-blue-600",
                     pathname === link.href ? "text-blue-600" : ""
                   )}
+                  onClick={() => setHamburger((prev) => !prev)}
                 >
                   {link.name}
                 </Link>
@@ -54,7 +56,7 @@ export default function NavLink({ hamburger }: NavLinkProps) {
                 key={link.name}
                 href={link.href}
                 className={clsx(
-                  "font-bold",
+                  "font-bold hover:text-blue-600",
                   pathname === link.href ? "text-blue-600" : ""
                 )}
               >

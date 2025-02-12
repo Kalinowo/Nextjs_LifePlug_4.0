@@ -8,6 +8,7 @@ import { CiSettings } from "react-icons/ci";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { userLogOut } from "@/server/action";
+import { VscSignOut } from "react-icons/vsc";
 
 export default function Header() {
   const [theme, setTheme] = useState("light");
@@ -36,7 +37,7 @@ export default function Header() {
             LifePlug
           </Link>
           <div className="hidden justify-center items-center gap-2 sm:flex">
-            <NavLink hamburger={hamburger} />
+            <NavLink hamburger={hamburger} setHamburger={setHambuger} />
           </div>
         </div>
         {/* toggle Hamburger */}
@@ -51,7 +52,7 @@ export default function Header() {
         {/* hamburger menu */}
         {hamburger && (
           <div className="fixed top-[80px] left-0 flex flex-col gap-5 p-8 text-2xl h-screen w-full bg-primary z-30 sm:hidden">
-            <NavLink hamburger={hamburger} />
+            <NavLink hamburger={hamburger} setHamburger={setHambuger} />
             {/* toggleTheme in hamburger */}
             <motion.div
               initial={{ x: -100, opacity: 0 }}
@@ -82,14 +83,22 @@ export default function Header() {
                 </button>
               </div>
             </motion.div>
+            <div className="z-30">
+              <form action={userLogOut}>
+                <button className="flex justify-center items-center gap-1 font-bold hover:text-blue-600">
+                  <VscSignOut className="text-4xl" />
+                  <div className="block text-lg sm:hidden">Sign Out</div>
+                </button>
+              </form>
+            </div>
           </div>
         )}
-
         {/* toggleTheme Button */}
         <div className="hidden items-center sm:flex justify-end">
           <div>
             <form action={userLogOut}>
-              <button className="p-5">
+              <button className="flex justify-center items-center gap-1 p-5 hover:text-blue-600">
+                <VscSignOut className="text-2xl" />
                 <div className="hidden sm:block">Sign Out</div>
               </button>
             </form>
