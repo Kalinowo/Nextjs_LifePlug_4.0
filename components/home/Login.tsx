@@ -19,12 +19,17 @@ export default function Login({ setOpenLogin }: LoginFormProps) {
   );
   return (
     <div>
+      <div className="flex justify-center items-center text-base pt-3 text-blue-700">
+        點下方
+        <IoIosInformationCircleOutline className="text-white text-3xl" />
+        查看遊客帳號
+      </div>
       <div className="flex justify-center items-center text-4xl w-full py-3">
         會員登入
         <span className="text-white hover:text-red-600 group">
           <IoIosInformationCircleOutline />
           <div className="absolute hidden left-0 top-5 bg-gray-500 text-gray-300 rounded-xl mx-5 p-2 group-hover:flex flex-col border-2 dark:border-gray-500 backdrop-blur-3xl z-50">
-            <div>測試用帳號</div>
+            <div>遊客帳號</div>
             <div>帳號:test8@test.com</div>
             <div>密碼:123</div>
           </div>
@@ -76,7 +81,9 @@ export default function Login({ setOpenLogin }: LoginFormProps) {
         {errorMessage && (
           <>
             {/* <ExclamationCircleIcon className="h-5 w-5 text-red-500" /> */}
-            <p className="text-sm text-red-500">{errorMessage}</p>
+            <div className="flex justify-center items-center mb-2 font-bold">
+              <p className="text-sm text-red-500">{errorMessage}</p>
+            </div>
           </>
         )}
       </form>

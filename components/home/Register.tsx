@@ -43,7 +43,11 @@ export default function Register() {
             placeholder="Repeat-password"
             required
           />
-          {state?.message && <div>{state.message}</div>}
+          {state?.message && (
+            <div className="text-sm text-red-500 font-bold mt-2">
+              {state.message}
+            </div>
+          )}
         </div>
         <div className="flex gap-1 pb-2">
           <button
