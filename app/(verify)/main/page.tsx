@@ -27,7 +27,7 @@ export default async function Main(props: {
         <Search placeholder="Search anime..." />
       </Suspense>
       {query === "" ? (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense key={currentYear} fallback={<div>Loading...</div>}>
           <AnimeLists currentYear={currentYear} />
         </Suspense>
       ) : (
