@@ -52,3 +52,12 @@ export async function fetchAnimeByYear(year: string) {
   });
   return res;
 }
+
+export async function fetchUserAnimeHistory(userId: string) {
+  const res = await prisma?.history.findMany({
+    where: {
+      userId,
+    },
+  });
+  return res;
+}

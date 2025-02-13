@@ -24,7 +24,7 @@ export default function EpisodeBtn({
 
   useEffect(() => {
     if (episodeUrl) {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams.toString());
       params.set("episode", episodeUrl);
       router.replace(`${pathname}?${params.toString()}`);
     }

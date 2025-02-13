@@ -22,7 +22,7 @@ interface NavLinkProps {
 
 export default function NavLink({ hamburger, setHamburger }: NavLinkProps) {
   const pathname = usePathname();
-  console.log("here is the " + pathname);
+
   return (
     <>
       {hamburger

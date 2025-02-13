@@ -20,6 +20,7 @@ const getAnimesNames = async () => {
 export default async function AnimePage(props: {
   searchParams?: Promise<{
     episode: string;
+    currentTime: number;
   }>;
   params: Promise<{
     id: string;
@@ -37,10 +38,12 @@ export default async function AnimePage(props: {
   }
   // 透過url去設定episode || deafult array[0] episode
   const episode = searchParams?.episode || episodeDefault;
-
+  const prevTimeStamp = searchParams?.currentTime || 0;
   const allowedSlugs = getAllAnimesNames?.map((route) =>
     encodeURIComponent(route.engName)
   );
+
+  console.log(prevTimeStamp);
 
   if (!allowedSlugs?.includes(route.id)) {
     notFound();
@@ -64,9 +67,11 @@ export default async function AnimePage(props: {
           </span>
 
           <YoutubeContainer
-            episodeUrl={episode}
             anime={anime}
             session={session}
+            episodeArr={selectedAnime[0].episode}
+            episodeUrl={episode}
+            timeStamp={Number(prevTimeStamp)}
           />
           <div className="flex gap-2 px-2 pt-1">
             <Suspense fallback={<div>Loading...</div>}>

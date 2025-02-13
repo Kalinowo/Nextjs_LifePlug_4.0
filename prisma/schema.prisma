@@ -68,7 +68,8 @@ model History {
   title       String
   engName     String
   img         String
-  episode     String
+  episodeUrl  String
+  episode     String[]
   length      Int
   currentTime Float
   createdAt   DateTime @default(now())

@@ -4,7 +4,16 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { userId, title, engName, img, episode, length, currentTime } = body;
+    const {
+      userId,
+      title,
+      engName,
+      img,
+      episodeUrl,
+      episode,
+      length,
+      currentTime,
+    } = body;
     const check = await prisma.history.findFirst({
       where: {
         userId,
@@ -25,6 +34,7 @@ export async function POST(request: Request) {
           title,
           engName,
           img,
+          episodeUrl,
           episode,
           length,
           currentTime,

@@ -1,18 +1,33 @@
 "use client";
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import YouTube from "react-youtube";
 
-export default function YoutubeContainer({ episodeUrl, anime, session }: any) {
-  // console.log(session.user.id);
+export default function YoutubeContainer({
+  episodeArr,
+  episodeUrl,
+  anime,
+  session,
+  timeStamp,
+}: any) {
+  console.log(typeof timeStamp);
+  const opts = {
+    height: "390",
+    width: "640",
+    playerVars: {
+      //只接受整數
+      start: timeStamp,
+    },
+  };
+
   const youtubeState = async (e: any) => {
     // const duration = e.target.getDuration();
-    const currentTime = e.target.getCurrentTime();
+    const currentTime = Math.floor(e.target.getCurrentTime());
 
     let userId = session.user.id;
     let title = anime.title;
     let engName = anime.engName;
     let img = anime.img;
-    let episode = episodeUrl;
+    let episode = episodeArr;
     let length = anime.episode.length;
 
     switch (e.data) {
@@ -32,18 +47,37 @@ export default function YoutubeContainer({ episodeUrl, anime, session }: any) {
               title,
               engName,
               img,
+              episodeUrl,
               episode,
               length,
               currentTime,
             }),
           });
-          const result = await res.json();
+          console.log(res);
         } catch (error) {
           console.error("更新失敗", error);
         }
         break;
       case 2:
         //  暫停
+        try {
+          const res = await fetch("/api/videoHistory/new", {
+            method: "POST",
+            body: JSON.stringify({
+              userId,
+              title,
+              engName,
+              img,
+              episodeUrl,
+              episode,
+              length,
+              currentTime,
+            }),
+          });
+          console.log(res);
+        } catch (error) {
+          console.error("更新失敗", error);
+        }
         break;
       case 3:
         console.log("緩衝");
@@ -63,6 +97,7 @@ export default function YoutubeContainer({ episodeUrl, anime, session }: any) {
         <YouTube
           videoId={episodeUrl}
           className="youtubePlayer"
+          opts={opts}
           onStateChange={youtubeState}
         />
       )}
