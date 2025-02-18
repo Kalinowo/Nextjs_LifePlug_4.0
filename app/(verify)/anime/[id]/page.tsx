@@ -7,6 +7,9 @@ import EpisodeBtn from "@/components/anime/EpisodeBtn";
 import AdminAddEpisode from "@/components/anime/AdminAddEpisode";
 import { auth } from "@/auth";
 import { IoIosInformationCircleOutline } from "react-icons/io";
+import type { Metadata } from "next";
+
+export const dynamicParams = true; // false:return 404 when path is not generate by generateStaticParams.
 
 const getAnimesNames = async () => {
   const res = await prisma?.anime.findMany({
@@ -16,6 +19,30 @@ const getAnimesNames = async () => {
   });
   return res;
 };
+
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // fetch data
+  const { id } = await params;
+
+  return {
+    title: `${decodeURIComponent(id) + " - "}LifePlug`,
+    description: "place to enjoy animes",
+  };
+}
+
+export async function generateStaticParams() {
+  // Fetch data to generate paths
+  const paths = await getAnimesNames();
+
+  // Map data to parameters
+  return paths.map((path) => ({
+    id: path.engName,
+  }));
+}
 
 export default async function AnimePage(props: {
   searchParams?: Promise<{
@@ -31,6 +58,13 @@ export default async function AnimePage(props: {
   const getAllAnimesNames = await getAnimesNames();
   const selectedAnime = await fetchUniqueAnime(decodeURIComponent(route.id));
   const session = await auth();
+  const allowedSlugs = getAllAnimesNames?.map((route) =>
+    encodeURIComponent(route.engName)
+  );
+
+  if (!allowedSlugs?.includes(route.id)) {
+    notFound();
+  }
 
   let episodeDefault;
   if (selectedAnime) {
@@ -39,15 +73,6 @@ export default async function AnimePage(props: {
   // 透過url去設定episode || deafult array[0] episode
   const episode = searchParams?.episode || episodeDefault;
   const prevTimeStamp = searchParams?.currentTime || 0;
-  const allowedSlugs = getAllAnimesNames?.map((route) =>
-    encodeURIComponent(route.engName)
-  );
-
-  console.log(prevTimeStamp);
-
-  if (!allowedSlugs?.includes(route.id)) {
-    notFound();
-  }
 
   return (
     <div className="relative w-full">

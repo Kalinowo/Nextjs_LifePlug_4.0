@@ -13,6 +13,7 @@ import { VscSignOut } from "react-icons/vsc";
 export default function Header() {
   const [theme, setTheme] = useState("light");
   const [hamburger, setHambuger] = useState(false);
+
   useEffect(() => {
     const root = document.documentElement;
     if (theme === "dark") {

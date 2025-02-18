@@ -9,7 +9,6 @@ export default function YoutubeContainer({
   session,
   timeStamp,
 }: any) {
-  console.log(typeof timeStamp);
   const opts = {
     height: "390",
     width: "640",
