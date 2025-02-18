@@ -10,7 +10,10 @@ import { motion } from "framer-motion";
 import { userLogOut } from "@/server/action";
 import { VscSignOut } from "react-icons/vsc";
 
-const savedTheme = localStorage.getItem("theme");
+let savedTheme: any;
+if (typeof window !== "undefined") {
+  savedTheme = localStorage.getItem("theme");
+}
 
 export default function Header() {
   const [theme, setTheme] = useState("");
