@@ -10,16 +10,29 @@ import { motion } from "framer-motion";
 import { userLogOut } from "@/server/action";
 import { VscSignOut } from "react-icons/vsc";
 
+const savedTheme = localStorage.getItem("theme");
+
 export default function Header() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("");
   const [hamburger, setHambuger] = useState(false);
+
+  useEffect(() => {
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      localStorage.setItem("theme", "light");
+      setTheme("light");
+    }
+  }, []);
 
   useEffect(() => {
     const root = document.documentElement;
     if (theme === "dark") {
       root.classList.add("dark");
+      localStorage.setItem("theme", "dark");
     } else {
       root.classList.remove("dark");
+      localStorage.setItem("theme", "light");
     }
   }, [theme]);
 
