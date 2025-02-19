@@ -52,6 +52,8 @@ export default async function AnimeMap({
                       alt="anime_pic"
                       style={{ objectFit: "cover" }}
                       fill
+                      placeholder="blur"
+                      blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOcngwAAZcA/EHkNJYAAAAASUVORK5CYII="
                     />
                   </div>
                   <div
