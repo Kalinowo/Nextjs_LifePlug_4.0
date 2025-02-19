@@ -52,7 +52,6 @@ export default async function AnimeMap({
                       alt="anime_pic"
                       style={{ objectFit: "cover" }}
                       fill
-                      priority
                     />
                   </div>
                   <div

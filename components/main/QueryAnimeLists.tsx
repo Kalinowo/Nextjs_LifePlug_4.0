@@ -24,7 +24,6 @@ export default async function QueryAnimeLists({ query }: animelistsProps) {
                 alt="anime_pic"
                 style={{ objectFit: "cover" }}
                 fill
-                priority
               />
             </div>
             <div
