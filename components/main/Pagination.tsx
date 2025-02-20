@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 export default function Pagination({
@@ -32,7 +31,7 @@ export default function Pagination({
       const findIndex = totalYears.indexOf(checkYear);
       params.set("year", totalYears[findIndex + 1]);
     }
-    return `${pathname}?${params.toString()}`;
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   const handleNextYear = () => {
@@ -41,21 +40,28 @@ export default function Pagination({
       const findIndex = totalYears.indexOf(checkYear);
       params.set("year", totalYears[findIndex - 1]);
     }
-    return `${pathname}?${params.toString()}`;
+    router.push(`${pathname}?${params.toString()}`);
   };
-
-  const prevYearUrl = handlePrevYear();
-  const nextYearUrl = handleNextYear();
 
   return (
     <>
       <div className="flex justify-center items-center gap-10 text-gray-200 pb-5 pt-2">
         {totalYears[totalYears.length - 1] === currentYear ||
         query !== "" ? null : (
-          <Link href={prevYearUrl}>上一年</Link>
+          <div
+            onClick={handlePrevYear}
+            className="cursor-pointer hover:text-blue-600"
+          >
+            上一年
+          </div>
         )}
         {totalYears[0] === currentYear || query !== "" ? null : (
-          <Link href={nextYearUrl}>下一年</Link>
+          <div
+            onClick={handleNextYear}
+            className="cursor-pointer hover:text-blue-600"
+          >
+            下一年
+          </div>
         )}
       </div>
     </>
