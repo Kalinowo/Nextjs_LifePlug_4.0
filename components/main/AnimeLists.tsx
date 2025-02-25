@@ -1,5 +1,6 @@
 import { fetchAnimeByYear } from "@/lib/data";
 import AnimeMap from "./ui/animeMap";
+import { Suspense } from "react";
 
 interface animelistsProps {
   currentYear: string;

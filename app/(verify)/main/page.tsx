@@ -14,10 +14,12 @@ export default async function Main(props: {
     year: string;
   }>;
 }) {
-  const session = await auth();
-  const searchParams = await props.searchParams;
+  const [session, searchParams, totalYears] = await Promise.all([
+    auth(),
+    props.searchParams,
+    fetchUniqueYears(),
+  ]);
   const query = searchParams?.query || "";
-  const totalYears = await fetchUniqueYears();
   const currentYear = searchParams?.year || "";
 
   return (
