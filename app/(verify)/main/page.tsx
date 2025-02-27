@@ -7,6 +7,7 @@ import Pagination from "@/components/main/Pagination";
 import QueryAnimeLists from "@/components/main/QueryAnimeLists";
 import { auth } from "@/auth";
 import { Suspense } from "react";
+import CustomLoading from "@/components/ui/CustomLoading";
 
 export default async function Main(props: {
   searchParams?: Promise<{
@@ -20,22 +21,22 @@ export default async function Main(props: {
     fetchUniqueYears(),
   ]);
   const query = searchParams?.query || "";
-  const currentYear = searchParams?.year || "";
+  const currentYear = searchParams?.year || totalYears[0] || "";
 
   return (
     <div className="relative w-full px-5">
       {session?.user.role === "ADMIN" && <AdminFunction />}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback>
         <Search placeholder="Search anime..." />
       </Suspense>
       {query === "" ? (
-        <Suspense key={currentYear} fallback={<div>Loading...</div>}>
+        <Suspense key={currentYear} fallback={<CustomLoading />}>
           <AnimeLists currentYear={currentYear} />
         </Suspense>
       ) : (
         <QueryAnimeLists query={query} />
       )}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback>
         <Pagination
           totalYears={totalYears}
           query={query}

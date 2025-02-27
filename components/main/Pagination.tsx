@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect } from "react";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import React from "react";
+import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 export default function Pagination({
@@ -14,20 +14,11 @@ export default function Pagination({
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const checkYear = searchParams.get("year")?.toString();
-
-  useEffect(() => {
-    if (currentYear === "") {
-      const params = new URLSearchParams(searchParams);
-      params.set("year", totalYears[0]);
-      router.push(`${pathname}?${params.toString()}`);
-      return;
-    }
-  }, [currentYear]);
 
   const handleYearParams = (direction: string) => {
     const params = new URLSearchParams(searchParams);
+    if (!checkYear) params.set("year", totalYears[1]);
     if (checkYear) {
       const findIndex = totalYears.indexOf(checkYear);
       if (direction === "prev") {
