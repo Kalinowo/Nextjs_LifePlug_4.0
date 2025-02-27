@@ -26,7 +26,7 @@ export default async function Main(props: {
   return (
     <div className="relative w-full px-5">
       {session?.user.role === "ADMIN" && <AdminFunction />}
-      <Suspense fallback>
+      <Suspense fallback={<div>Loading...</div>}>
         <Search placeholder="Search anime..." />
       </Suspense>
       {query === "" ? (
@@ -36,7 +36,7 @@ export default async function Main(props: {
       ) : (
         <QueryAnimeLists query={query} />
       )}
-      <Suspense fallback>
+      <Suspense fallback={<div>Loading...</div>}>
         <Pagination
           totalYears={totalYears}
           query={query}
