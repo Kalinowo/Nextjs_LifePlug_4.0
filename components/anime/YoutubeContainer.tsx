@@ -41,6 +41,9 @@ export default function YoutubeContainer({
         try {
           const res = await fetch("/api/videoHistory/new", {
             method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
             body: JSON.stringify({
               userId,
               title,

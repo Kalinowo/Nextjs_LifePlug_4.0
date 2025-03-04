@@ -1,6 +1,7 @@
 import { fetchAnimeByYear } from "@/lib/data";
 import AnimeMap from "./ui/animeMap";
 import { Suspense } from "react";
+import CustomLoading from "../ui/CustomLoading";
 
 interface animelistsProps {
   currentYear: string;
@@ -14,10 +15,18 @@ export default async function AnimeLists({ currentYear }: animelistsProps) {
       <div className="mx-auto text-6xl mb-5 text-gray-600 dark:dark gradient-text">
         {currentYear}動畫
       </div>
-      <AnimeMap month="十月秋番" animes={animes} season="fall" />
-      <AnimeMap month="七月夏番" animes={animes} season="summer" />
-      <AnimeMap month="四月春番" animes={animes} season="spring" />
-      <AnimeMap month="一月冬番" animes={animes} season="winter" />
+      <Suspense fallback={<CustomLoading />}>
+        <AnimeMap month="十月秋番" animes={animes} season="fall" />
+      </Suspense>
+      <Suspense fallback={<CustomLoading />}>
+        <AnimeMap month="七月夏番" animes={animes} season="summer" />
+      </Suspense>
+      <Suspense fallback={<CustomLoading />}>
+        <AnimeMap month="四月春番" animes={animes} season="spring" />
+      </Suspense>
+      <Suspense fallback={<CustomLoading />}>
+        <AnimeMap month="一月冬番" animes={animes} season="winter" />
+      </Suspense>
     </div>
   );
 }
