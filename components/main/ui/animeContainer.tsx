@@ -26,7 +26,7 @@ export default function AnimeContainer({
             alt="anime_pic"
             style={{ objectFit: "cover" }}
             fill
-            sizes="100vh"
+            sizes="50vw"
             placeholder="blur"
             blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOcngwAAZcA/EHkNJYAAAAASUVORK5CYII="
           />
