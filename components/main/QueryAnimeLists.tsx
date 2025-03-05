@@ -11,7 +11,7 @@ export default async function QueryAnimeLists({ query }: animelistsProps) {
     <div className="flex flex-wrap gap-2 w-full">
       {animes.map((anime, idx) => (
         <AnimeContainer
-          id={anime.id}
+          key={anime.id}
           engName={anime.engName}
           img={anime.img}
           title={anime.title}
