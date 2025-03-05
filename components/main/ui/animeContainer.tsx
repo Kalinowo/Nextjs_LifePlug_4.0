@@ -3,21 +3,18 @@ import Link from "next/link";
 import Image from "next/image";
 
 interface AnimeContainerProps {
-  id: React.Key;
   engName: string;
   img: string;
   title: string;
 }
 
 export default function AnimeContainer({
-  id,
   engName,
   img,
   title,
 }: AnimeContainerProps) {
   return (
     <Link
-      key={id}
       href={`/anime/${engName}`}
       className="relative flex flex-col border-2 border-black rounded-xl overflow-hidden basis-[calc(50%-8px)] md:basis-[calc(25%-6px)] shadow-xl group"
     >
@@ -29,6 +26,7 @@ export default function AnimeContainer({
             alt="anime_pic"
             style={{ objectFit: "cover" }}
             fill
+            sizes="100vh"
             placeholder="blur"
             blurDataURL="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOcngwAAZcA/EHkNJYAAAAASUVORK5CYII="
           />

@@ -41,7 +41,7 @@ export default async function AnimeMap({
           : filterLists?.map((anime, idx) => (
               //   anime container↓
               <AnimeContainer
-                id={anime.id}
+                key={anime.id}
                 engName={anime.engName}
                 img={anime.img}
                 title={anime.title}
