@@ -45,73 +45,29 @@ export default function Header() {
 
   return (
     <>
-      <div className="flex justify-between w-full py-5 px-5 z-50 text-gray-300">
+      <div className="relative flex justify-between w-full pt-5 pb-3 px-5 z-50 text-gray-300 bg-primary">
         <div className="flex justify-center items-center">
           <Link
             href="/main"
-            className="text-[36px] pr-5 text-gray-600 dark:dark gradient-text"
+            className="text-[36px] text-gray-600 dark:dark gradient-text"
           >
             LifePlug
           </Link>
-          <div className="hidden justify-center items-center gap-2 sm:flex">
+          <div className="hidden justify-center items-center gap-2 mx-5 sm:flex">
             <NavLink hamburger={hamburger} setHamburger={setHambuger} />
           </div>
         </div>
         {/* toggle Hamburger */}
-        <div
-          className="flex justify-end items-center w-full text-4xl cursor-pointer sm:hidden"
-          onClick={() => setHambuger((prev) => !prev)}
-        >
+        <div className="flex justify-end items-center w-full text-4xl  sm:hidden">
           <CiSettings
-            className={clsx("duration-500", { "rotate-90": hamburger })}
+            className={clsx("duration-500 cursor-pointer", {
+              "rotate-90": hamburger,
+            })}
+            onClick={() => setHambuger((prev) => !prev)}
           />
         </div>
-        {/* hamburger menu */}
-        {hamburger && (
-          <div className="fixed top-[80px] left-0 flex flex-col gap-5 p-8 text-2xl h-screen w-full bg-primary z-30 sm:hidden">
-            <NavLink hamburger={hamburger} setHamburger={setHambuger} />
-            {/* toggleTheme in hamburger */}
-            <motion.div
-              initial={{ x: -100, opacity: 0 }}
-              animate={{
-                x: 0,
-                opacity: 100,
-              }}
-              transition={{ ease: "easeOut", duration: 0.4 }}
-            >
-              <div className="flex sm:hidden">
-                <button
-                  className="relative flex items-center h-[40px] w-[70px] rounded-full bg-gray-300"
-                  onClick={toggleTheme}
-                >
-                  <span className="absolute left-2 text-2xl text-black">
-                    <CiLight />
-                  </span>
-                  <span className="absolute right-2 text-2xl text-black">
-                    <CiDark />
-                  </span>
-                  <div
-                    className={
-                      theme === "light"
-                        ? "absolute w-[30px] translate-x-[5px] h-[30px] bg-orange-400/50 rounded-full duration-500"
-                        : "absolute w-[30px] translate-x-[35px] h-[30px] bg-black/50 rounded-full duration-500"
-                    }
-                  ></div>
-                </button>
-              </div>
-            </motion.div>
-            <div className="z-30">
-              <form action={userLogOut}>
-                <button className="flex justify-center items-center gap-1 font-bold hover:text-blue-600">
-                  <VscSignOut className="text-4xl" />
-                  <div className="block text-lg sm:hidden">Sign Out</div>
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
         {/* toggleTheme Button */}
-        <div className="hidden items-center sm:flex justify-end">
+        <div className="hidden items-center sm:flex justify-end ">
           <div>
             <form action={userLogOut}>
               <button className="flex justify-center items-center gap-1 p-5 hover:text-blue-600">
@@ -121,7 +77,7 @@ export default function Header() {
             </form>
           </div>
           <button
-            className="relative flex items-center w-[70px] h-[40px] rounded-full bg-gray-300"
+            className="relative flex items-center w-[70px] h-[40px] rounded-full bg-gray-300 dark:bg-gray-400"
             onClick={toggleTheme}
           >
             <span className="absolute left-2 text-2xl text-black">
@@ -140,6 +96,50 @@ export default function Header() {
           </button>
         </div>
       </div>
+      {/* hamburger menu */}
+      {hamburger && (
+        <div className="absolute top-[86px] bottom-0 right-0 left-0 flex flex-col gap-5 pl-8 text-2xl w-full bg-primary text-gray-300 z-10 sm:hidden">
+          <NavLink hamburger={hamburger} setHamburger={setHambuger} />
+          {/* toggleTheme in hamburger */}
+          <motion.div
+            initial={{ x: -100, opacity: 0 }}
+            animate={{
+              x: 0,
+              opacity: 100,
+            }}
+            transition={{ ease: "easeOut", duration: 0.4 }}
+          >
+            <div className="flex sm:hidden">
+              <button
+                className="relative flex items-center h-[40px] w-[70px] rounded-full bg-gray-300"
+                onClick={toggleTheme}
+              >
+                <span className="absolute left-2 text-2xl text-black">
+                  <CiLight />
+                </span>
+                <span className="absolute right-2 text-2xl text-black">
+                  <CiDark />
+                </span>
+                <div
+                  className={
+                    theme === "light"
+                      ? "absolute w-[30px] translate-x-[5px] h-[30px] bg-orange-400/50 rounded-full duration-500"
+                      : "absolute w-[30px] translate-x-[35px] h-[30px] bg-black/50 rounded-full duration-500"
+                  }
+                ></div>
+              </button>
+            </div>
+          </motion.div>
+          <div className="">
+            <form action={userLogOut}>
+              <button className="flex justify-center items-center gap-1 font-bold hover:text-blue-600">
+                <VscSignOut className="text-4xl" />
+                <div className="block text-lg sm:hidden">Sign Out</div>
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 }
