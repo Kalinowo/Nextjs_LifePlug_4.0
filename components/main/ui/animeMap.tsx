@@ -20,11 +20,7 @@ interface AnimeMapProps {
   season: string;
 }
 
-export default async function AnimeMap({
-  month,
-  animes,
-  season,
-}: AnimeMapProps) {
+export default function AnimeMap({ month, animes, season }: AnimeMapProps) {
   // filter相同年份和對應季節的動畫
   const filterLists = animes?.filter((anime) => anime.season === season);
 
